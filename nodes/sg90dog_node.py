@@ -53,7 +53,7 @@ class Node():
       
 #main function
 def main(args):
-  rospy.init_node('wiimote_demo_node', anonymous=True)
+  rospy.init_node('dog_control_node', anonymous=True)
   my_node = Node()
   
   try:
