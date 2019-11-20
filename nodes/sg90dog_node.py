@@ -14,9 +14,10 @@ from SG90Dog import SG90Dog
 class Node():
   def __init__(self):
 
-    self.dog = SG90dog() 
+    self.dog = SG90Dog() 
     self.timenow = rospy.Time.now()#in case you need this
-    
+    self.frequency = 6.0
+    self.amplitude = 0.01    
     #set up your publishers with appropriate topic types
 
     #set up your subscribers
@@ -46,7 +47,7 @@ class Node():
     #this function runs over and over again at dt.
     #do stuff based on states. 
 
-    dog.update(self.dt,self.action,self.frequency,self.amplitude)
+    self.dog.update(self.dt,self.action,self.frequency,self.amplitude)
 
 
     

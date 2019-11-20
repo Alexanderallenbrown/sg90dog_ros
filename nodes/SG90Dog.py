@@ -19,8 +19,8 @@ class SG90Dog:
         self.b = 2  # adapt to your servo
 
         self.bus = SMBus(3) # Raspberry Pi revision 2
-        self.pwm = PWM(bus, i2c_address)
-        self.pwm.setFreq(fPWM)
+        self.pwm = PWM(self.bus, self.i2c_address)
+        self.pwm.setFreq(self.fPWM)
 
         self.setup()
 
@@ -42,8 +42,8 @@ class SG90Dog:
         self.pwm = PWM(self.bus, self.i2c_address)
         self.pwm.setFreq(self.fPWM)
 
-    def zeroBot(self.):
-        duty = a/180*90+b
+    def zeroBot(self):
+        duty = self.a/180*90+self.b
         for ch in range(0,16):
             self.pwm.setDuty(ch,duty)
 
@@ -68,7 +68,7 @@ class SG90Dog:
         self.pwm.setDuty(hipch,hduty)
 
 
-    def doTurn(freq,yamp,zamp,t):
+    def doTurn(self,freq,yamp,zamp,t):
         phifr = 0
         philr = 3*pi/2
         phifl = pi
@@ -87,7 +87,7 @@ class SG90Dog:
         zrr = zamp*cos(freq*t+phirr)
         return xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr
 
-    def doWalk(freq,xamp,zamp,t):
+    def doWalk(self,freq,xamp,zamp,t):
         phifr = 0
         philr = pi/2
         phifl = pi
@@ -106,7 +106,7 @@ class SG90Dog:
         zrr = zamp*cos(freq*t+phirr)
         return xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr
 
-    def doStand(freq,amp,t):
+    def doStand(self,freq,amp,amp2,t):
         xfl = 0#amp*sin(freq*t)
         yfl = 0
         zfl = 0
@@ -121,7 +121,7 @@ class SG90Dog:
         zrr = 0
         return xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr
 
-    def doDown(freq,amp,t):
+    def doDown(self,freq,amp,amp2,t):
         xfl = .01#amp*sin(freq*t)
         yfl = 0
         zfl = -.025
@@ -136,7 +136,7 @@ class SG90Dog:
         zrr = -.025
         return xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr
 
-    def doSit(freq,amp,t):
+    def doSit(self,freq,amp,amp2,t):
         xfl = .01#amp*sin(freq*t)
         yfl = 0
         zfl = .03
@@ -152,7 +152,7 @@ class SG90Dog:
         return xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr
 
 
-    def doSway(freq,amp,t):
+    def doSway(self,freq,amp,amp2,t):
         xfl = 0#amp*sin(freq*t)
         yfl = -amp*sin(.5*freq*t)
         zfl = 0
@@ -167,7 +167,7 @@ class SG90Dog:
         zrr = 0
         return xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr
 
-    def doBump(freq,amp,t):
+    def doBump(self,freq,amp,amp2,t):
         xfl = 0#amp*sin(freq*t)
         yfl = 0
         zfl = amp*sin(freq*t)
@@ -182,7 +182,7 @@ class SG90Dog:
         zrr = amp*sin(freq*t)
         return xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr
 
-    def doStompL(freq,amp,t):
+    def doStompL(freq,amp,amp2,t):
         xfl = 0#amp*sin(freq*t)
         yfl = amp*cos(.5*freq*t)
         zfl = amp*sin(freq*t)
@@ -202,22 +202,23 @@ class SG90Dog:
         self.t+=dt
         self.amp = amp
         self.freq = freq
+        t = self.t
         if action=="stompleft":
-            xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doStompL(freq,amp,t)
+            xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doStompL(freq,amp,amp,t)
         elif action== "bump":
-            xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doBump(freq,amp,t)
-        elif action=="sway"
-            xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doSway(freq,amp,t)
+            xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doBump(freq,amp,amp,t)
+        elif action=="sway":
+            xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doSway(freq,amp,amp,t)
         elif action=="sit":
-            xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doSit(freq,amp,t)
+            xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doSit(freq,amp,amp,t)
         elif action=="down":
-            xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doDown(freq,amp,t)
+            xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doDown(freq,amp,amp,t)
         elif action=="stand":
-            xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doStand(freq,amp,t)
+            xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doStand(freq,amp,amp,t)
         elif action=="walk":
-            xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doWalk(freq,amp,t)
+            xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doWalk(freq,amp,amp,t)
         elif action=="turn":
-            xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doTurn(freq,amp,t)
+            xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doTurn(freq,amp,amp,t)
         else:
             xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = 0,0,0,0,0,0,0,0,0,0,0,0
 
