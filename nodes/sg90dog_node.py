@@ -16,7 +16,7 @@ class Node():
 
     self.dog = SG90Dog() 
     self.timenow = rospy.Time.now()#in case you need this
-    self.frequency = 24.0
+    self.frequency = 9.0
     self.amplitude = 0.01    
     #set up your publishers with appropriate topic types
 
@@ -31,7 +31,9 @@ class Node():
     self.dt = 0.1
     #set up timed loop to run like an arduino's "void loop" at a particular rate (100Hz)
     rospy.Timer(rospy.Duration(self.dt),self.loop,oneshot=False) 
-
+    self.dT = self.dt
+    self.time = time.time()
+    self.oldtime = self.time-self.dt
 
   def sub1Callback(self,data):
     #the actual string is called by data.data. update the appropriate class-owned variable.
@@ -46,7 +48,9 @@ class Node():
   def loop(self,event):
     #this function runs over and over again at dt.
     #do stuff based on states. 
-
+    self.time = time.time()
+    self.dT = self.time-self.oldtime
+    self.oldtime = self.time
     self.dog.update(self.dt,self.action,self.frequency,self.amplitude)
 
 
