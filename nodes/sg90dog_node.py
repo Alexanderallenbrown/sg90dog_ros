@@ -16,7 +16,7 @@ class Node():
 
     self.dog = SG90Dog() 
     self.timenow = rospy.Time.now()#in case you need this
-    self.frequency = 6.0
+    self.frequency = 24.0
     self.amplitude = 0.01    
     #set up your publishers with appropriate topic types
 
@@ -28,7 +28,7 @@ class Node():
 
     self.action = 'stand'
 
-    self.dt = 0.01
+    self.dt = 0.1
     #set up timed loop to run like an arduino's "void loop" at a particular rate (100Hz)
     rospy.Timer(rospy.Duration(self.dt),self.loop,oneshot=False) 
 

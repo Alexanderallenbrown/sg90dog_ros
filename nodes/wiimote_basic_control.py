@@ -12,11 +12,14 @@ class Node():
   def __init__(self):
 
     #set up your subscribers
-    self.pub1 = rospy.publisher("/action",String,queue_size=1)
+    self.pub1 = rospy.Publisher("/action",String,queue_size=1)
     self.sub2 = rospy.Subscriber("/joy",Joy,self.sub1Callback)
     #initialize any variables that the class "owns. these will be available in any function in the class.
 
     self.action = 'stand'
+    self.ob0 = 0
+    self.ob5 = 0
+    self.ob6 = 0
 
 
   def sub1Callback(self,data):
@@ -32,8 +35,6 @@ class Node():
       outmsg.data='bump'
     elif data.buttons[6]:
       outmsg.data='walk'
-    else:
-      outmsg.data='down'
     self.pub1.publish(outmsg)
     
     
