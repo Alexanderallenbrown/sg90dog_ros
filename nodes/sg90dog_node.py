@@ -51,7 +51,7 @@ class Node():
     self.time = time.time()
     self.dT = self.time-self.oldtime
     self.oldtime = self.time
-    self.dog.update(self.dt,self.action,self.frequency,self.amplitude)
+    self.dog.update(self.dT,self.action,self.frequency,self.amplitude)
 
 
     
