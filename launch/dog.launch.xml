@@ -1,0 +1,5 @@
+<launch>
+<node pkg='joy' type='joy_node' name='joystick'/>
+<node pkg='sg90dog_ros' type='wiimote_basic_control.py' name='wiimote_inter'/>
+<node pkg='sg90dog_ros' type='sg90dog_node.py' name='dognode'/>
+</launch>
