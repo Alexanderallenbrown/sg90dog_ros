@@ -182,7 +182,7 @@ class SG90Dog:
         zrr = amp*sin(freq*t)
         return xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr
 
-    def doStompL(freq,amp,amp2,t):
+    def doStompL(self,freq,amp,amp2,t):
         xfl = 0#amp*sin(freq*t)
         yfl = amp*cos(.5*freq*t)
         zfl = amp*sin(freq*t)
