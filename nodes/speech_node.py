@@ -34,7 +34,7 @@ class Node():
   
   
     with sr.AudioFile(self.afile) as source:
-        saudio = self.r.record(source)  # read the entire audio file
+        audio = self.r.record(source)  # read the entire audio file
     try:
         print("Sphinx thinks you said " + self.r.recognize_sphinx(audio))
     except sr.UnknownValueError:
