@@ -26,17 +26,18 @@ class Node():
 
     
 
-    self.rectimer =  rospy.Timer(rospy.Duration(2),self.recloop,oneshot=False) #timer callback (math) allows filter to run at constant time
+    self.rectimer =  rospy.Timer(rospy.Duration(.5),self.recloop,oneshot=False) #timer callback (math) allows filter to run at constant time
     self.proctimer = rospy.Timer(rospy.Duration(2),self.procloop,oneshot=False)
     self.afile = self.package_path+'/wav/file.wav'
   def recloop(self,event):
-    self.process = os.system('arecord -d 2 -D plughw:1 -c1 -r 48000 -f S32_LE -t wav -V mono  '+self.package_path+'/wav/file.wav')
+    self.process = os.system('arecord -d 1 -D plughw:1 -c1 -r 48000 -f S32_LE -t wav -V mono  '+self.package_path+'/wav/file.wav')
   
   
     with sr.AudioFile(self.afile) as source:
         audio = self.r.record(source)  # read the entire audio file
     try:
-        print("Sphinx thinks you said " + self.r.recognize_sphinx(audio))
+        result = self.r.recognize_sphinx(audio)
+        print("Sphinx thinks you said " + result)
     except sr.UnknownValueError:
         print("Sphinx could not understand audio")
     except sr.RequestError as e:
