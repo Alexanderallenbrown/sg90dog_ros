@@ -13,7 +13,7 @@ import rospkg
 
 class Node():
   def __init__(self):
-    ospack = rospkg.RosPack()
+    rospack = rospkg.RosPack()
     # get the file path for rospy_tutorials
     self.package_path=rospack.get_path('sg90dog_ros')
     #set up your subscribers
