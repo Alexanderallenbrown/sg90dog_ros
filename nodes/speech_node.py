@@ -20,7 +20,7 @@ class Node():
     #set up your subscribers
     self.pub1 = rospy.Publisher("/action",String,queue_size=1)
     #initialize any variables that the class "owns. these will be available in any function in the class.
-    self.process = os.system(['arecord -d 2 -D plughw:1 -c1 -r 48000 -f S32_LE -t wav -V mono -v '+self.package_path+'/wav/file.wav'])
+    self.process = os.system('arecord -d 2 -D plughw:1 -c1 -r 48000 -f S32_LE -t wav -V mono -v '+self.package_path+'/wav/file.wav')
     self.action = 'stand'
     self.r = sr.Recognizer()
 
@@ -30,7 +30,7 @@ class Node():
     self.proctimer = rospy.Timer(rospy.Duration(2),self.procloop,oneshot=False)
     self.afile = self.package_path+'/wav/file.wav'
   def recloop(self,event):
-    self.process = os.system(['arecord -d 2 -D plughw:1 -c1 -r 48000 -f S32_LE -t wav -V mono -v '+self.package_path+'/wav/file.wav'])
+    self.process = os.system('arecord -d 2 -D plughw:1 -c1 -r 48000 -f S32_LE -t wav -V mono -v '+self.package_path+'/wav/file.wav')
   
   def procloop(self,event):
     with sr.AudioFile(afile) as source:
