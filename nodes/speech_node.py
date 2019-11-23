@@ -8,6 +8,7 @@ from numpy import *
 import time;
 import subprocess
 import speech_recognition as sr
+import rospkg
 
 
 class Node():
@@ -32,7 +33,7 @@ class Node():
   
   def procloop(self,event):
     with sr.AudioFile(afile) as source:
-        audio = self.r.record(source)  # read the entire audio file
+        saudio = self.r.record(source)  # read the entire audio file
     try:
         print("Sphinx thinks you said " + r.recognize_sphinx(audio))
     except sr.UnknownValueError:
