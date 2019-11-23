@@ -9,6 +9,7 @@ import time;
 import subprocess
 import speech_recognition as sr
 import rospkg
+import os
 
 
 class Node():
