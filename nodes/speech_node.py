@@ -32,16 +32,18 @@ class Node():
   def recloop(self,event):
     self.process = os.system('arecord -d 2 -D plughw:1 -c1 -r 48000 -f S32_LE -t wav -V mono  '+self.package_path+'/wav/file.wav')
   
-  def procloop(self,event):
+  
     with sr.AudioFile(self.afile) as source:
         saudio = self.r.record(source)  # read the entire audio file
     try:
-        print("Sphinx thinks you said " + r.recognize_sphinx(audio))
+        print("Sphinx thinks you said " + self.r.recognize_sphinx(audio))
     except sr.UnknownValueError:
         print("Sphinx could not understand audio")
     except sr.RequestError as e:
         print("Sphinx error; {0}".format(e))
-
+  
+  def procloop(self,event):
+    pass
       
 #main function
 def main(args):
