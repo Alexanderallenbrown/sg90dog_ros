@@ -58,15 +58,35 @@ class SG90Dog:
         self.pwm.setDuty(ch,fduty)
         self.pwm.setDuty(ch+1,tduty)
 
-    def setLeg3d(self,femur,tibia,hip,ch,hipch):
-        fduty = self.a/180 * femur + self.b
-        tduty = self.a/180*tibia+self.b
-        hduty = self.a/180*hip+self.b
+#    def setLeg3d(self,femur,tibia,ch,hipch):
+#	fduty = self.a/180 * femur + self.b
+#	tduty = self.a/180*tibia+self.b
+#	hduty = self.a/180*hip+self.b
+#	# print fduty,tduty,hduty
+#	self.pwm.setDuty(ch,fduty)
+#	self.pwm.setDuty(ch+1,tduty)
+#	self.pwm.setDuty(hipch,hduty)
+
+    def setLeg3d(self,femur,tibia,hip,fch,tch,hipch):
+        if hipch == 9:
+		fduty = self.a/180 * femur + self.b
+		tduty = self.a/180 * tibia + self.b
+		hduty = self.a/180 * (hip - 3) + self.b
+	elif fch == 7:
+		fduty = self.a/180 * (femur - 8) + self.b
+		tduty = self.a/180 * (tibia - 7) + self.b
+		hduty = self.a/180 * hip + self.b
+	else:
+		fduty = self.a/180 * femur + self.b
+        	tduty = self.a/180*tibia+self.b
+        	hduty = self.a/180*hip+self.b
         # print fduty,tduty,hduty
-        self.pwm.setDuty(ch,fduty)
-        self.pwm.setDuty(ch+1,tduty)
+        self.pwm.setDuty(fch,fduty)
+        self.pwm.setDuty(tch,tduty)
         self.pwm.setDuty(hipch,hduty)
 
+#    def senseForce(self, z_foot_raw):
+	
 
     def doTurn(self,freq,yamp,zamp,t):
         phifr = 0
@@ -198,7 +218,7 @@ class SG90Dog:
         return xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr
 
 
-    def update(self,dt,action,freq,amp):
+    def update(self,dt,action,freq,amp,force1):
         self.t+=dt
         self.amp = amp
         self.freq = freq
@@ -222,13 +242,16 @@ class SG90Dog:
         else:
             xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = 0,0,0,0,0,0,0,0,0,0,0,0
 
+	dz1 = self.senseForce(force1)
+	# zfl = zfl + dz1
+
         flfem,fltib,flhip = self.flLeg.servoAngles(xfl,yfl,zfl)
         frfem,frtib,frhip = self.frLeg.servoAngles(xfr,yfr,zfr)
         lrfem,lrtib,lrhip = self.lrLeg.servoAngles(xlr,ylr,zlr)
         rrfem,rrtib,rrhip = self.rrLeg.servoAngles(xrr,yrr,zrr)
 
-        self.setLeg3d(frfem,frtib,frhip,0,8)
-        self.setLeg3d(flfem,fltib,flhip,2,9)
-        self.setLeg3d(lrfem,lrtib,lrhip,4,10)
-        self.setLeg3d(rrfem,rrtib,rrhip,6,11)
+        self.setLeg3d(frfem,frtib,frhip,4,0,8)
+        self.setLeg3d(flfem,fltib,flhip,5,1,9)
+        self.setLeg3d(lrfem,lrtib,lrhip,6,2,10)
+        self.setLeg3d(rrfem,rrtib,rrhip,7,3,11)
 

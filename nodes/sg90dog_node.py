@@ -17,13 +17,15 @@ class Node():
     self.dog = SG90Dog() 
     self.timenow = rospy.Time.now()#in case you need this
     self.frequency = 9.0
-    self.amplitude = 0.01    
+    self.amplitude = 0.01
+    self.footforce1 = 0 
     #set up your publishers with appropriate topic types
 
     #set up your subscribers
     self.sub1 = rospy.Subscriber("/action",String,self.sub1Callback)
     self.sub2 = rospy.Subscriber("/frequency",Float32,self.sub2Callback)
     self.sub3 = rospy.Subscriber("/amplitude",Float32,self.sub3Callback)
+    self.footsub1 = rospy.Subscriber("/footforce1",Float64,self.foot1Callback)
     #initialize any variables that the class "owns. these will be available in any function in the class.
 
     self.action = 'stand'
@@ -44,6 +46,10 @@ class Node():
   def sub3Callback(self,data):
     self.amplitude = data.data
 
+  def foot1Callback(self, data):
+    self.footforce1 = data.data
+
+
 
   def loop(self,event):
     #this function runs over and over again at dt.
@@ -51,7 +57,8 @@ class Node():
     self.time = time.time()
     self.dT = self.time-self.oldtime
     self.oldtime = self.time
-    self.dog.update(self.dT,self.action,self.frequency,self.amplitude)
+    self.dog.update(self.dT,self.action,self.frequency,self.amplitude,self.footforce1)
+
 
 
     

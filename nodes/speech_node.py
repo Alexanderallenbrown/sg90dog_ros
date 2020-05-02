@@ -30,11 +30,12 @@ class Node():
     self.proctimer = rospy.Timer(rospy.Duration(2),self.procloop,oneshot=False)
     self.afile = self.package_path+'/wav/file.wav'
   def recloop(self,event):
-    self.process = os.system('arecord -d 1 -D plughw:1 -c1 -r 48000 -f S32_LE -t wav -V mono  '+self.package_path+'/wav/file.wav')
+    self.process = os.system('arecord -d 1 -D plughw:1 -c1 -r 16000 -f S32_LE -t wav -V mono  '+self.package_path+'/wav/file.wav')
   
   
     with sr.AudioFile(self.afile) as source:
         audio = self.r.record(source)  # read the entire audio file
+        print("done recording")
     try:
         result = self.r.recognize_sphinx(audio)
         print("Sphinx thinks you said " + result)
