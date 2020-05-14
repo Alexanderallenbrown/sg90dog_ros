@@ -9,10 +9,10 @@ bus = SMBus(3) # Raspberry Pi revision 2
 address = 0x64
 
 def pubForceSensor():
-    pub1 = rospy.Publisher('force_sensor1', Float64,queue_size = 1)
-    pub2 = rospy.Publisher('force_sensor2', Float64,queue_size = 1)
-    pub3 = rospy.Publisher('force_sensor3', Float64,queue_size = 1)
-    pub4 = rospy.Publisher('force_sensor4', Float64,queue_size = 1)
+    pub1 = rospy.Publisher('/force_sensor1', Float64,queue_size = 1)
+    pub2 = rospy.Publisher('/force_sensor2', Float64,queue_size = 1)
+    pub3 = rospy.Publisher('/force_sensor3', Float64,queue_size = 1)
+    pub4 = rospy.Publisher('/force_sensor4', Float64,queue_size = 1)
     rospy.init_node('pubForceReading',anonymous = True)
     rate = rospy.Rate(50)
     while not rospy.is_shutdown():

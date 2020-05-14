@@ -28,10 +28,10 @@ class Node():
     self.sub1 = rospy.Subscriber("/action",String,self.sub1Callback)
     self.sub2 = rospy.Subscriber("/frequency",Float32,self.sub2Callback)
     self.sub3 = rospy.Subscriber("/amplitude",Float32,self.sub3Callback)
-    self.footsub1 = rospy.Subscriber("/footforce1",Float64,self.foot1Callback)
-    self.footsub2 = rospy.Subscriber("/footforce2",Float64,self.foot2Callback)
-    self.footsub3 = rospy.Subscriber("/footforce3",Float64,self.foot3Callback)
-    self.footsub4 = rospy.Subscriber("/footforce4",Float64,self.foot4Callback)
+    self.footsub1 = rospy.Subscriber("/force_sensor1",Float64,self.foot1Callback)
+    self.footsub2 = rospy.Subscriber("/force_sensor2",Float64,self.foot2Callback)
+    self.footsub3 = rospy.Subscriber("/force_sensor3",Float64,self.foot3Callback)
+    self.footsub4 = rospy.Subscriber("/force_sensor4",Float64,self.foot4Callback)
 
     #initialize any variables that the class "owns. these will be available in any function in the class.
 
@@ -39,7 +39,7 @@ class Node():
 
     self.dt = 0.1
     #set up timed loop to run like an arduino's "void loop" at a particular rate (100Hz)
-    rospy.Timer(rospy.Duration(self.dt),self.loop,oneshot=False) 
+    rospy.Timer(rospy.Duration(self.dt),self.loop,oneshot=False)
     self.dT = self.dt
     self.time = time.time()
     self.oldtime = self.time-self.dt
