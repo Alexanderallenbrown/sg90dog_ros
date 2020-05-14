@@ -14,7 +14,7 @@ class Leg3d:
         self.tht = self.tht_raw+self.thf_offset
         self.thh_raw = 0
         self.thh = self.servozero_h
-    
+
     def servoAngles(self,xrel,yrel,zrel):
         self.rawAngles(xrel,yrel,zrel)
         #for right femur, 90 degrees represents thetaf of 135, zero represents thetaf of 180
@@ -30,11 +30,9 @@ class Leg3d:
             self.thh = pi-self.thh
         elif self.side==1:
             self.tht = pi-self.tht
-            
 
-        
-         
         return self.thf*180/pi,self.tht*180/pi,self.thh*180/pi
+
     def rawAngles(self,xrel,yrel,zrel):
         x = xrel+self.zerox
         z = zrel+self.zeroz

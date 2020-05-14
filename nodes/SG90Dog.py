@@ -85,8 +85,22 @@ class SG90Dog:
         self.pwm.setDuty(tch,tduty)
         self.pwm.setDuty(hipch,hduty)
 
-#    def senseForce(self, z_foot_raw):
-	
+    def senseForce(self, zFootRaw):
+	# Check to see if reading is greater than noise/offsets
+	if zFootRaw > 50:
+		# convert raw data into distance (meters)
+		float_to_m = 0.000007
+		dzFoot = float_to_m * zFootRaw
+		# Calculate force experience by foot
+		kFoot = 2795 # spring constant of foot, found empirically (N/m)
+		Ffoot = kFoot * dzFoot
+		# Calculate desired displacement using virtual spring (m)
+		kVirtual = 2250 # spring constant of knee joint, guessed (N/m)
+		dz = Ffoot / kVirtual
+		return dz
+	else:
+		# If not, simply return 0 and don't adjust z
+		return 0
 
     def doTurn(self,freq,yamp,zamp,t):
         phifr = 0
@@ -218,7 +232,7 @@ class SG90Dog:
         return xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr
 
 
-    def update(self,dt,action,freq,amp,force1):
+    def update(self,dt,action,freq,amp,force1,force2,force3,force4):
         self.t+=dt
         self.amp = amp
         self.freq = freq
@@ -242,14 +256,31 @@ class SG90Dog:
         else:
             xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = 0,0,0,0,0,0,0,0,0,0,0,0
 
+	# Adjust z position using force sensors
 	dz1 = self.senseForce(force1)
-	# zfl = zfl + dz1
+	zfr_actual = zfr + dz1
 
-        flfem,fltib,flhip = self.flLeg.servoAngles(xfl,yfl,zfl)
-        frfem,frtib,frhip = self.frLeg.servoAngles(xfr,yfr,zfr)
-        lrfem,lrtib,lrhip = self.lrLeg.servoAngles(xlr,ylr,zlr)
-        rrfem,rrtib,rrhip = self.rrLeg.servoAngles(xrr,yrr,zrr)
+        dz2 = self.senseForce(force2)
+        zfl_actual = zfl + dz2
 
+        dz3 = self.senseForce(force3)
+        zlr_actual = zlr + dz3
+
+        dz4 = self.senseForce(force4)
+        zrr_actual = zrr + dz4
+
+#        flfem,fltib,flhip = self.flLeg.servoAngles(xfl,yfl,zfl)
+#        frfem,frtib,frhip = self.frLeg.servoAngles(xfr,yfr,zfr)
+#        lrfem,lrtib,lrhip = self.lrLeg.servoAngles(xlr,ylr,zlr)
+#        rrfem,rrtib,rrhip = self.rrLeg.servoAngles(xrr,yrr,zrr)
+
+	# Update z parameters and calculate angles
+	flfem,fltib,flhip = self.flLeg.servoAngles(xfl,yfl,zfl_actual)
+        frfem,frtib,frhip = self.frLeg.servoAngles(xfr,yfr,zfr_actual)
+        lrfem,lrtib,lrhip = self.lrLeg.servoAngles(xlr,ylr,zlr_actual)
+        rrfem,rrtib,rrhip = self.rrLeg.servoAngles(xrr,yrr,zrr_actual)
+
+	# Pass angles to setLeg3d to send servos PWM commands
         self.setLeg3d(frfem,frtib,frhip,4,0,8)
         self.setLeg3d(flfem,fltib,flhip,5,1,9)
         self.setLeg3d(lrfem,lrtib,lrhip,6,2,10)

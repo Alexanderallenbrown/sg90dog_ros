@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from smbus import SMBus
 from std_msgs.msg import Float64
 import time
@@ -15,19 +17,20 @@ def pubForceSensor():
     rate = rospy.Rate(50)
     while not rospy.is_shutdown():
 	forces = bus.read_i2c_block_data(address, 0)
-	rospy.loginfo(data)
+	print forces[0:4]
+	rospy.loginfo(forces)
 	f1 = Float64()
 	f2 = Float64()
 	f3 = Float64()
 	f4 = Float64()
-	f1.data = float(data[0])
-	f2.data = float(data[1])
-	f3.data = float(data[2])
-	f4.data = float(data[3])
+	f1.data = float(forces[0])
+	f2.data = float(forces[1])
+	f3.data = float(forces[2])
+	f4.data = float(forces[3])
 	pub1.publish(f1)
 	pub2.publish(f2)
 	pub3.publish(f3)
-	pub4.publish(f4) 
+	pub4.publish(f4)
 	rate.sleep()
 
 #while True:
