@@ -17,8 +17,8 @@ def pubForceSensor():
     rate = rospy.Rate(50)
     while not rospy.is_shutdown():
 	forces = bus.read_i2c_block_data(address, 0)
-	print forces[0:4]
-	rospy.loginfo(forces)
+	print(forces[0], forces[1], forces[2], forces[3])
+#	rospy.loginfo(forces)
 	f1 = Float64()
 	f2 = Float64()
 	f3 = Float64()
