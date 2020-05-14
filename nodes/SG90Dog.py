@@ -237,6 +237,7 @@ class SG90Dog:
         self.amp = amp
         self.freq = freq
         t = self.t
+        print force1
         if action=="stompleft":
             xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doStompL(freq,amp,amp,t)
         elif action== "bump":
@@ -285,4 +286,3 @@ class SG90Dog:
         self.setLeg3d(flfem,fltib,flhip,5,1,9)
         self.setLeg3d(lrfem,lrtib,lrhip,6,2,10)
         self.setLeg3d(rrfem,rrtib,rrhip,7,3,11)
-
