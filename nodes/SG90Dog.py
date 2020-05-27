@@ -87,7 +87,7 @@ class SG90Dog:
 
     def senseForce(self, zFootRaw):
 	# Check to see if reading is greater than noise/offsets
-	if zFootRaw > 50:
+	if zFootRaw > 70:
 		# convert raw data into distance (meters)
 		float_to_m = 0.000007
 		dzFoot = float_to_m * zFootRaw
@@ -95,8 +95,9 @@ class SG90Dog:
 		kFoot = 2795 # spring constant of foot, found empirically (N/m)
 		Ffoot = kFoot * dzFoot
 		# Calculate desired displacement using virtual spring (m)
-		kVirtual = 2250 # spring constant of knee joint, guessed (N/m)
+		kVirtual = 200 # spring constant of knee joint, guessed (N/m)
 		dz = Ffoot / kVirtual
+        print dz
 		return dz
 	else:
 		# If not, simply return 0 and don't adjust z
