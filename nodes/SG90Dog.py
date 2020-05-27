@@ -174,16 +174,16 @@ class SG90Dog:
     def doSit(self,freq,amp,amp2,t):
         xfl = .01#amp*sin(freq*t)
         yfl = 0
-        zfl = .03
+        zfl = 0.02#.03
         xfr = .01#amp*sin(freq*t)
         yfr = 0
-        zfr = .03
-        xlr = -.025#amp*sin(freq*t)
+        zfr = 0.02#.03
+        xlr = -0.01#-.025#amp*sin(freq*t)
         ylr = 0
-        zlr = -.03
-        xrr = -.025#amp*sin(freq*t)
+        zlr = -0.02#-.03
+        xrr = -0.01#-.025#amp*sin(freq*t)
         yrr = 0
-        zrr = -.03
+        zrr = -0.02#-.03
         return xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr
 
 
