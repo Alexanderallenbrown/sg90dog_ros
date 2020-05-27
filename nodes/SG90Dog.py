@@ -232,6 +232,35 @@ class SG90Dog:
         zrr = 0
         return xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr
 
+    def doHighFiveL(self,freq,amp,amp2,t):
+        xfl = -0.0785
+        yfl = 0
+        zfl = 0
+        xfr = 0
+        yfr = 0
+        zfr = 0
+        xlr = 0
+        ylr = 0
+        zlr = 0
+        xrr = 0
+        yrr = 0
+        zrr = 0
+        return xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr
+
+    def doHighFiveR(self,freq,amp,amp2,t):
+        xfl = 0
+        yfl = 0
+        zfl = 0
+        xfr = -0.0785
+        yfr = 0
+        zfr = 0
+        xlr = 0
+        ylr = 0
+        zlr = 0
+        xrr = 0
+        yrr = 0
+        zrr = 0
+        return xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr
 
     def update(self,dt,action,freq,amp,force1,force2,force3,force4):
         self.t+=dt
@@ -255,6 +284,10 @@ class SG90Dog:
             xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doWalk(freq,amp,amp,t)
         elif action=="turn":
             xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doTurn(freq,amp,amp,t)
+        elif action=="highfiveleft":
+            xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doHighFiveL(freq,amp,amp,t)
+        elif action=="highfiveright":
+            xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doHighFiveR(freq,amp,amp,t)
         else:
             xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = 0,0,0,0,0,0,0,0,0,0,0,0
 
