@@ -97,7 +97,7 @@ class SG90Dog:
 		# Calculate desired displacement using virtual spring (m)
 		kVirtual = 200 # spring constant of knee joint, guessed (N/m)
 		dz = Ffoot / kVirtual
-        print dz
+        # print dz
 		return dz
 	else:
 		# If not, simply return 0 and don't adjust z
@@ -174,16 +174,16 @@ class SG90Dog:
     def doSit(self,freq,amp,amp2,t):
         xfl = .01#amp*sin(freq*t)
         yfl = 0
-        zfl = .03
+        zfl = 0.02#.03
         xfr = .01#amp*sin(freq*t)
         yfr = 0
-        zfr = .03
-        xlr = -.025#amp*sin(freq*t)
+        zfr = 0.02#.03
+        xlr = -.0.01#-.025#amp*sin(freq*t)
         ylr = 0
-        zlr = -.03
-        xrr = -.025#amp*sin(freq*t)
+        zlr = -0.02#-.03
+        xrr = -0.01#-.025#amp*sin(freq*t)
         yrr = 0
-        zrr = -.03
+        zrr = -0.02#-.03
         return xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr
 
 
@@ -238,7 +238,7 @@ class SG90Dog:
         self.amp = amp
         self.freq = freq
         t = self.t
-        print force1
+        # print force1
         if action=="stompleft":
             xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = self.doStompL(freq,amp,amp,t)
         elif action== "bump":
@@ -259,17 +259,21 @@ class SG90Dog:
             xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr = 0,0,0,0,0,0,0,0,0,0,0,0
 
 	# Adjust z position using force sensors
-	dz1 = self.senseForce(force1)
-	zfr_actual = zfr + dz1
+	   # dz1 = self.senseForce(force1)
+	   # zfr_actual = zfr - dz1
 
         dz2 = self.senseForce(force2)
-        zfl_actual = zfl + dz2
+        zfl_actual = zfl - dz2
+
+        zfr_actual = zfr - dz2 # Temporarily reference second sensor due to $
 
         dz3 = self.senseForce(force3)
-        zlr_actual = zlr + dz3
+        zlr_actual = zlr - dz3
 
         dz4 = self.senseForce(force4)
-        zrr_actual = zrr + dz4
+        zrr_actual = zrr - dz4
+
+        print(zfr_actual, zfl_actual, zlr_actual, zrr_actual)
 
 #        flfem,fltib,flhip = self.flLeg.servoAngles(xfl,yfl,zfl)
 #        frfem,frtib,frhip = self.frLeg.servoAngles(xfr,yfr,zfr)
