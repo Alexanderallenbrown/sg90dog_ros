@@ -262,6 +262,7 @@ class SG90Dog:
 #	dz1 = self.senseForce(force1)
 #	zfr_actual = zfr - dz1
 
+
         dz2 = self.senseForce(force2)
         zfl_actual = zfl - dz2
 

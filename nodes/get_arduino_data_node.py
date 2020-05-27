@@ -19,8 +19,8 @@ def pubForceSensor():
     while not rospy.is_shutdown():
 	forces = bus.read_i2c_block_data(address, 0) # get data from Arduino
 	print(forces[0], forces[1], forces[2], forces[3]) # print sensor readings in bytes
-#	rospy.loginfo(forces)
-	# Set up messages for publishers
+	# rospy.loginfo(forces)
+        # Set up messages for publishers
 	f1 = Float64()
 	f2 = Float64()
 	f3 = Float64()
