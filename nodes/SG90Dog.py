@@ -233,9 +233,9 @@ class SG90Dog:
         return xfl,yfl,zfl,xfr,yfr,zfr,xlr,ylr,zlr,xrr,yrr,zrr
 
     def doHighFiveL(self,freq,amp,amp2,t):
-        xfl = -0.0785
+        xfl = -0.05
         yfl = 0
-        zfl = 0
+        zfl = -0.015 #-.0254*3.582
         xfr = 0
         yfr = 0
         zfr = 0
@@ -253,7 +253,7 @@ class SG90Dog:
         zfl = 0
         xfr = -0.0785
         yfr = 0
-        zfr = 0
+        zfr = -.0254*3.582
         xlr = 0
         ylr = 0
         zlr = 0
