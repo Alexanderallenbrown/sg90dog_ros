@@ -67,7 +67,7 @@ class SG90Dog:
 #	self.pwm.setDuty(ch+1,tduty)
 #	self.pwm.setDuty(hipch,hduty)
 
-    def setLeg3d(self,femur,tibia,hip,fch,tch,hipch):
+    def setLeg3d(self,tibia,femur,hip,tch,fch,hipch):
         if hipch == 9:
 		fduty = self.a/180 * femur + self.b
 		tduty = self.a/180 * tibia + self.b
@@ -321,7 +321,7 @@ class SG90Dog:
         rrfem,rrtib,rrhip = self.rrLeg.servoAngles(xrr,yrr,zrr_actual)
 
 	# Pass angles to setLeg3d to send servos PWM commands
-        self.setLeg3d(frfem,frtib,frhip,4,0,8)
-        self.setLeg3d(flfem,fltib,flhip,5,1,9)
+        self.setLeg3d(frfem,frtib,frhip,0,1,2)
+        self.setLeg3d(flfem,fltib,flhip,5,1,9) # TODO: Update pins 
         self.setLeg3d(lrfem,lrtib,lrhip,6,2,10)
         self.setLeg3d(rrfem,rrtib,rrhip,7,3,11)
