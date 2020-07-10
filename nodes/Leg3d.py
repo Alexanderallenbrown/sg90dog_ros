@@ -21,42 +21,58 @@ class Leg3d:
         #therefore, effective offsets can be calculated as
         off_femur = -(self.servozero_f+self.thf_offset)
         off_tibia = self.servozero_t-self.tht_offset
+
+        # Calculate angles including servo offsets
         self.thf = -(self.thf_raw + off_femur)
         self.tht = self.tht_raw + off_tibia
         self.thh = self.thh_raw + self.servozero_h
+
+        # Adjust angles according to orientation of each servo
         if self.side==2:
-            self.thf = pi-self.thf
-            self.tht = self.tht
+            # If the servo is on the left side...
+            # self.thf = pi-self.thf
+            self.thf = self.thf
+            # self.tht = self.tht
+            self.tht = pi-self.tht
             self.thh = pi-self.thh
         elif self.side==1:
-            self.tht = pi-self.tht
+            # If the servo is on the right side...
+            # self.tht = pi-self.tht
+            self.tht = self.tht
+            self.thf = pi-self.thf
 
         return self.thf*180/pi,self.tht*180/pi,self.thh*180/pi
 
     def rawAngles(self,xrel,yrel,zrel):
         x = xrel+self.zerox
-        z = zrel+self.zeroz
+        z = zrel+self.zeroz # TODO: is zrel negative too?
 
+        self.thh_raw = arctan(yrel/z)  # Calculates hip angle
+
+        # Find displacement in z on the x-z plane (accounts for hip angle)
         zp = z/(cos(arctan2(yrel,z)))
-        self.thh_raw = arctan(yrel/z)
 
-
-        d = sqrt(zp**2+x**2)
-        thleg = arctan2(zp,x)
+        d = sqrt(zp**2+x**2) # distance between foot and femur joint
+        thleg = arctan2(zp,x) # angle between x-axis and line from femur joint to foot (should be negative when foot is below the chassis)
         opthlt = (d**2+self.lf**2-self.lt**2)/(2*d*self.lf)
-#        print "calculating angles"
         if(abs(opthlt)>=1):
+            # If the quantity's magnitude is larger than 1, it can't be evaluted
+            # by arccos. Assigns it a value of 1 or -1
             opthlt = 1.0*opthlt/abs(opthlt)
-	    print "warning! out of bounds"
-        thlt = arccos(opthlt)
-        self.thf_raw = thleg+thlt
+            print "warning! out of bounds"
+        thlt = arccos(opthlt)  # angle between femur and line from femur joint to foot
+        # self.thf_raw = thleg+thlt  # angle of femur from x-axis (should be negative)
+        self.thf_raw = abs(thleg-thlt)  # angle of femur from x-axis (should be negative)
+
         opthd = (self.lt**2+self.lf**2-d**2)/(2*self.lt*self.lf)
         if(abs(opthd)>=1):
+            # If the quantity's magnitude is larger than 1, it can't be evaluted
+            # by arccos. Assigns it a value of 1 or -1
             opthd=1*opthd/abs(opthd)
             print "warning... thd out of bounds for xrel: "+str(xrel)+" and zrel: "+str(zrel)
-        thd = arccos(opthd)
+        thd = arccos(opthd)  # angle between femur and tibia
+        self.tht_raw = pi-thd  # supplementary angle
 
-        self.tht_raw = pi-thd
         return self.thf_raw,self.tht_raw,self.thh_raw
 
 
