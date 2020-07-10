@@ -21,16 +21,22 @@ class Leg3d:
         #therefore, effective offsets can be calculated as
         off_femur = -(self.servozero_f+self.thf_offset)
         off_tibia = self.servozero_t-self.tht_offset
+
+        # Calculate angles including servo offsets
         self.thf = -(self.thf_raw + off_femur)
         self.tht = self.tht_raw + off_tibia
         self.thh = self.thh_raw + self.servozero_h
+
+        # Adjust angles according to orientation of each servo
         if self.side==2:
+            # If the servo is on the left side...
             # self.thf = pi-self.thf
             self.thf = self.thf
             # self.tht = self.tht
             self.tht = pi-self.tht
             self.thh = pi-self.thh
         elif self.side==1:
+            # If the servo is on the right side...
             # self.tht = pi-self.tht
             self.tht = self.tht
             self.thf = pi-self.thf
@@ -64,8 +70,8 @@ class Leg3d:
             # by arccos. Assigns it a value of 1 or -1
             opthd=1*opthd/abs(opthd)
             print "warning... thd out of bounds for xrel: "+str(xrel)+" and zrel: "+str(zrel)
-        thd = arccos(opthd)
-        self.tht_raw = pi-thd
+        thd = arccos(opthd)  # angle between femur and tibia
+        self.tht_raw = pi-thd  # supplementary angle
 
         return self.thf_raw,self.tht_raw,self.thh_raw
 
