@@ -274,19 +274,19 @@ class SG90Dog:
 
         # Adjust z position using force sensors
         dz1 = self.senseForce(force1)
-        zfr_actual = zfr - dz1
+        zfr_actual = zfr + dz1
 
 
         dz2 = self.senseForce(force2)
-        zfl_actual = zfl - dz2
+        zfl_actual = zfl + dz2
 
-        # zfr_actual = zfr - dz1 # Temporarily reference second sensor due to spiking issue
+        # zfr_actual = zfr + dz1 # Temporarily reference second sensor due to spiking issue
 
         dz3 = self.senseForce(force3)
-        zrl_actual = zrl - dz3
+        zrl_actual = zrl + dz3
 
         dz4 = self.senseForce(force4)
-        zrr_actual = zrr - dz4
+        zrr_actual = zrr + dz4
 
         print(zfr_actual, zfl_actual, zrl_actual, zrr_actual)
 

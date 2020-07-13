@@ -45,7 +45,7 @@ class Leg3d:
 
     def rawAngles(self,xrel,yrel,zrel):
         x = xrel+self.zerox
-        z = zrel+self.zeroz # TODO: is zrel negative too?
+        z = zrel+self.zeroz
         print("x = ", x, ", z = ", z)
 
         self.thh_raw = arctan(yrel/z)  # Calculates hip angle
