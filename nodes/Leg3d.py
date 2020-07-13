@@ -46,11 +46,14 @@ class Leg3d:
     def rawAngles(self,xrel,yrel,zrel):
         x = xrel+self.zerox
         z = zrel+self.zeroz # TODO: is zrel negative too?
+        print("x = ", x, ", z = ", z)
 
         self.thh_raw = arctan(yrel/z)  # Calculates hip angle
+        print('thh_raw =', self.thh_raw)
 
         # Find displacement in z on the x-z plane (accounts for hip angle)
-        zp = z/(cos(arctan2(yrel,z)))
+        zp = z/(cos(arctan(yrel,z)))
+        print('zp = ', zp)
 
         d = sqrt(zp**2+x**2) # distance between foot and femur joint
         thleg = arctan2(zp,x) # angle between x-axis and line from femur joint to foot (should be negative when foot is below the chassis)
