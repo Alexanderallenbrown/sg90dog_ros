@@ -34,7 +34,7 @@ class SG90Dog:
 
         # walker = Walk3d(stride_height=-0.01,stride_length =.02)
 
-        bpm = 138#music tempo
+        bpm = 80 #138#music tempo
         self.freq = bpm/60.*2*pi
         self.amp = 0.015
 
@@ -104,6 +104,7 @@ class SG90Dog:
     		return 0
 
     def doTurn(self,freq,yamp,zamp,t):
+        # TODO: check signs
         phifr = 0
         phirl = 3*pi/2
         phifl = pi
@@ -157,38 +158,41 @@ class SG90Dog:
         return xfl,yfl,zfl,xfr,yfr,zfr,xrl,yrl,zrl,xrr,yrr,zrr
 
     def doDown(self,freq,amp,amp2,t):
-        xfl = .01#amp*sin(freq*t)
+        # TODO: check rear, adjust front x so that tibia is flat on surface?
+        # This is really more like a pounce position...maybe make it a separate action?
+        xfl = .012#amp*sin(freq*t)
         yfl = 0
-        zfl = -.025
-        xfr = .01#amp*sin(freq*t)
+        zfl = .023 #-.025
+        xfr = .012#amp*sin(freq*t)
         yfr = 0
-        zfr = -.025
+        zfr = .023 #-.025
         xrl = -.025#amp*sin(freq*t)
         yrl = 0
-        zrl = -.025
+        zrl = .025 #-.025
         xrr = -.025#amp*sin(freq*t)
         yrr = 0
-        zrr = -.025
+        zrr = .025 #-.025
         return xfl,yfl,zfl,xfr,yfr,zfr,xrl,yrl,zrl,xrr,yrr,zrr
 
     def doSit(self,freq,amp,amp2,t):
-        # TODO: swap +/- signs
-	xfl = .01#amp*sin(freq*t)
+        # TODO: check rear, swap +/- signs
+    	xfl = -0.01 #.01#amp*sin(freq*t)
         yfl = 0
-        zfl = 0.02#.03
-        xfr = .01#amp*sin(freq*t)
+        zfl = -0.02 #0.02#.03
+        xfr = -0.01 #..01#amp*sin(freq*t)
         yfr = 0
-        zfr = 0.02#.03
-        xrl = -0.01#-.025#amp*sin(freq*t)
+        zfr = -0.02 #0.02#.03
+        xrl = 0.012 #.-0.01#-.025#amp*sin(freq*t)
         yrl = 0
-        zrl = -0.02#-.03
-        xrr = -0.01#-.025#amp*sin(freq*t)
+        zrl = 0.03 #-0.02#-.03
+        xrr = 0.012 #.-0.01#-.025#amp*sin(freq*t)
         yrr = 0
-        zrr = -0.02#-.03
+        zrr = 0.03 #-0.02#-.03
         return xfl,yfl,zfl,xfr,yfr,zfr,xrl,yrl,zrl,xrr,yrr,zrr
 
 
     def doSway(self,freq,amp,amp2,t):
+        # TODO: check signs
         xfl = 0#amp*sin(freq*t)
         yfl = -amp*sin(.5*freq*t)
         zfl = 0
@@ -204,6 +208,7 @@ class SG90Dog:
         return xfl,yfl,zfl,xfr,yfr,zfr,xrl,yrl,zrl,xrr,yrr,zrr
 
     def doBump(self,freq,amp,amp2,t):
+        #TODO: check signs
         xfl = 0#amp*sin(freq*t)
         yfl = 0
         zfl = amp*sin(freq*t)
@@ -219,6 +224,7 @@ class SG90Dog:
         return xfl,yfl,zfl,xfr,yfr,zfr,xrl,yrl,zrl,xrr,yrr,zrr
 
     def doStompL(self,freq,amp,amp2,t):
+        # TODO: check signs
         xfl = 0#amp*sin(freq*t)
         yfl = amp*cos(.5*freq*t)
         zfl = amp*sin(freq*t)
@@ -265,7 +271,8 @@ class SG90Dog:
 
     def update(self,dt,action,freq,amp,force1,force2,force3,force4):
         self.t+=dt
-        self.amp = amp
+        self.amp = 0.015 #amp
+        self.zamp = 0.005
         self.freq = freq
         t = self.t
 #        print force1
@@ -282,7 +289,7 @@ class SG90Dog:
         elif action=="stand":
             xfl,yfl,zfl,xfr,yfr,zfr,xrl,yrl,zrl,xrr,yrr,zrr = self.doStand(freq,amp,amp,t)
         elif action=="walk":
-            xfl,yfl,zfl,xfr,yfr,zfr,xrl,yrl,zrl,xrr,yrr,zrr = self.doWalk(freq,amp,amp,t)
+            xfl,yfl,zfl,xfr,yfr,zfr,xrl,yrl,zrl,xrr,yrr,zrr = self.doWalk(freq,amp,0.005,t)
         elif action=="turn":
             xfl,yfl,zfl,xfr,yfr,zfr,xrl,yrl,zrl,xrr,yrr,zrr = self.doTurn(freq,amp,amp,t)
         elif action=="highfiveleft":
