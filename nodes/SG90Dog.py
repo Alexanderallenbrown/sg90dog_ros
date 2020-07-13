@@ -59,13 +59,13 @@ class SG90Dog:
         self.pwm.setDuty(ch+1,tduty)
 
 #    def setLeg3d(self,femur,tibia,ch,hipch):
-#	fduty = self.a/180 * femur + self.b
-#	tduty = self.a/180*tibia+self.b
-#	hduty = self.a/180*hip+self.b
-#	# print fduty,tduty,hduty
-#	self.pwm.setDuty(ch,fduty)
-#	self.pwm.setDuty(ch+1,tduty)
-#	self.pwm.setDuty(hipch,hduty)
+    #	fduty = self.a/180 * femur + self.b
+    #	tduty = self.a/180*tibia+self.b
+    #	hduty = self.a/180*hip+self.b
+    #	# print fduty,tduty,hduty
+    #	self.pwm.setDuty(ch,fduty)
+    #	self.pwm.setDuty(ch+1,tduty)
+    #	self.pwm.setDuty(hipch,hduty)
 
     def setLeg3d(self,femur,tibia,hip,fch,tch,hipch):
         if hipch == 9:
@@ -292,37 +292,37 @@ class SG90Dog:
         else:
             xfl,yfl,zfl,xfr,yfr,zfr,xrl,yrl,zrl,xrr,yrr,zrr = 0,0,0,0,0,0,0,0,0,0,0,0
 
-	# Adjust z position using force sensors
-#	dz1 = self.senseForce(force1)
-#	zfr_actual = zfr - dz1
+        # Adjust z position using force sensors
+        #	dz1 = self.senseForce(force1)
+        #	zfr_actual = zfr - dz1
 
 
-	dz2 = self.senseForce(force2)
-	zfl_actual = zfl - dz2
+        dz2 = self.senseForce(force2)
+        zfl_actual = zfl - dz2
 
-	zfr_actual = zfr - dz2 # Temporarily reference second sensor due to spiking issue
+        zfr_actual = zfr - dz2 # Temporarily reference second sensor due to spiking issue
 
-	dz3 = self.senseForce(force3)
-	zrl_actual = zrl - dz3
+        dz3 = self.senseForce(force3)
+        zrl_actual = zrl - dz3
 
-	dz4 = self.senseForce(force4)
-	zrr_actual = zrr - dz4
+        dz4 = self.senseForce(force4)
+        zrr_actual = zrr - dz4
 
-	print(zfr_actual, zfl_actual, zrl_actual, zrr_actual)
+        print(zfr_actual, zfl_actual, zrl_actual, zrr_actual)
 
-#        flfem,fltib,flhip = self.flLeg.servoAngles(xfl,yfl,zfl)
-#        frfem,frtib,frhip = self.frLeg.servoAngles(xfr,yfr,zfr)
-#        rlfem,rltib,rlhip = self.rlLeg.servoAngles(xrl,yrl,zrl)
-#        rrfem,rrtib,rrhip = self.rrLeg.servoAngles(xrr,yrr,zrr)
+    #        flfem,fltib,flhip = self.flLeg.servoAngles(xfl,yfl,zfl)
+    #        frfem,frtib,frhip = self.frLeg.servoAngles(xfr,yfr,zfr)
+    #        rlfem,rltib,rlhip = self.rlLeg.servoAngles(xrl,yrl,zrl)
+    #        rrfem,rrtib,rrhip = self.rrLeg.servoAngles(xrr,yrr,zrr)
 
-	# Update z parameters and calculate angles
-	flfem,fltib,flhip = self.flLeg.servoAngles(xfl,yfl,zfl_actual)
-	frfem,frtib,frhip = self.frLeg.servoAngles(xfr,yfr,zfr_actual)
-	rlfem,rltib,rlhip = self.rlLeg.servoAngles(xrl,yrl,zrl_actual)
-	rrfem,rrtib,rrhip = self.rrLeg.servoAngles(xrr,yrr,zrr_actual)
+    	# Update z parameters and calculate angles
+        flfem,fltib,flhip = self.flLeg.servoAngles(xfl,yfl,zfl_actual)
+        frfem,frtib,frhip = self.frLeg.servoAngles(xfr,yfr,zfr_actual)
+        rlfem,rltib,rlhip = self.rlLeg.servoAngles(xrl,yrl,zrl_actual)
+        rrfem,rrtib,rrhip = self.rrLeg.servoAngles(xrr,yrr,zrr_actual)
 
-	# Pass angles to setLeg3d to send servos PWM commands
-	self.setLeg3d(frfem,frtib,frhip,4,0,8)
-	self.setLeg3d(flfem,fltib,flhip,5,1,9)
-	self.setLeg3d(rlfem,rltib,rlhip,6,2,10)
-	self.setLeg3d(rrfem,rrtib,rrhip,7,3,11)
+        # Pass angles to setLeg3d to send servos PWM commands
+        self.setLeg3d(frfem,frtib,frhip,4,0,8)
+        self.setLeg3d(flfem,fltib,flhip,5,1,9)
+    	self.setLeg3d(rlfem,rltib,rlhip,6,2,10)
+    	self.setLeg3d(rrfem,rrtib,rrhip,7,3,11)

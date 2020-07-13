@@ -41,21 +41,21 @@ class Leg3d:
             self.tht = self.tht
             self.thf = pi-self.thf
 
-#	print(self.thf*180/pi,self.tht*180/pi,self.thh*180/pi)
+        #	print(self.thf*180/pi,self.tht*180/pi,self.thh*180/pi)
         return self.thf*180/pi,self.tht*180/pi,self.thh*180/pi
-#	return 90*180/pi, self.tht*180/pi,self.thh*180/pi
+        #	return 90*180/pi, self.tht*180/pi,self.thh*180/pi
 
     def rawAngles(self,xrel,yrel,zrel):
         x = xrel+self.zerox
         z = zrel+self.zeroz # TODO: is zrel negative too?
-	print("x = ", x, ", z = ", z)
+        print("x = ", x, ", z = ", z)
 
         self.thh_raw = arctan(yrel/z)  # Calculates hip angle
-	print('thh_raw =', self.thh_raw)
+        print('thh_raw =', self.thh_raw)
 
         # Find displacement in z on the x-z plane (accounts for hip angle)
         zp = z/(cos(arctan(yrel/z)))
-	print('zp = ', zp)
+        print('zp = ', zp)
 
         d = sqrt(zp**2+x**2) # distance between foot and femur joint
         thleg = arctan2(zp,x) # angle between x-axis and line from femur joint to foot (should be negative when foot is below the chassis)
@@ -68,7 +68,7 @@ class Leg3d:
         thlt = arccos(opthlt)  # angle between femur and line from femur joint to foot
         # self.thf_raw = thleg+thlt  # angle of femur from x-axis (should be negative)
         self.thf_raw = abs(thleg-thlt)  # angle of femur from x-axis (should be negative)
-#	print(thleg, thlt, self.thf_raw)
+        #	print(thleg, thlt, self.thf_raw)
 
         opthd = (self.lt**2+self.lf**2-d**2)/(2*self.lt*self.lf)
         if(abs(opthd)>=1):
