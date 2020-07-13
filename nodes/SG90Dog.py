@@ -140,31 +140,31 @@ class SG90Dog:
     def doDown(self,freq,amp,amp2,t):
         xfl = .01#amp*sin(freq*t)
         yfl = 0
-        zfl = -.025
+        zfl = .025 #-.025
         xfr = .01#amp*sin(freq*t)
         yfr = 0
-        zfr = -.025
+        zfr = .025 #-.025
         xrl = -.025#amp*sin(freq*t)
         yrl = 0
-        zrl = -.025
+        zrl = .025 #-.025
         xrr = -.025#amp*sin(freq*t)
         yrr = 0
-        zrr = -.025
+        zrr = .025 #-.025
         return xfl,yfl,zfl,xfr,yfr,zfr,xrl,yrl,zrl,xrr,yrr,zrr
 
     def doSit(self,freq,amp,amp2,t):
         xfl = .01#amp*sin(freq*t)
         yfl = 0
-        zfl = 0.02#.03
+        zfl = -0.02#.03
         xfr = .01#amp*sin(freq*t)
         yfr = 0
-        zfr = 0.02#.03
+        zfr = -0.02#.03
         xrl = -0.01#-.025#amp*sin(freq*t)
         yrl = 0
-        zrl = -0.02#-.03
+        zrl = 0.02#-.03
         xrr = -0.01#-.025#amp*sin(freq*t)
         yrr = 0
-        zrr = -0.02#-.03
+        zrr = 0.02#-.03
         return xfl,yfl,zfl,xfr,yfr,zfr,xrl,yrl,zrl,xrr,yrr,zrr
 
 
