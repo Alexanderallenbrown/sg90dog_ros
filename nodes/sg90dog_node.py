@@ -37,7 +37,7 @@ class Node():
 
     self.action = 'stand'
 
-    self.dt = 0.1
+    self.dt = 0.01 #0.1
     #set up timed loop to run like an arduino's "void loop" at a particular rate (100Hz)
     rospy.Timer(rospy.Duration(self.dt),self.loop,oneshot=False)
     self.dT = self.dt
