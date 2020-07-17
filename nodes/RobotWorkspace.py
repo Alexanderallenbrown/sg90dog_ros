@@ -71,7 +71,7 @@ for h in hipRange:
             # Calculate location of foot
             # length of tibia (approx or actual?)
 
-            xp_prime = tibiaLength * cost(t)
+            xp_prime = tibiaLength * cos(t)
             z4_prime = tibiaLength * sin(t)
 
             xp = x3 + xp_prime *cos(-f) - z4_prime * sin(-f)
