@@ -8,6 +8,8 @@ import time;
 
 from SG90Dog import SG90Dog
 
+from gpiozero import LED
+
 
 #this node subscribes to a float and a string. The float represents the input to a first order system. The string represents a state.
 
@@ -43,6 +45,7 @@ class Node():
     self.dT = self.dt
     self.time = time.time()
     self.oldtime = self.time-self.dt
+    self.servoControl = LED(17) # initializes RPi GPIO 17, which controls the servos
 
   def sub1Callback(self,data):
     #the actual string is called by data.data. update the appropriate class-owned variable.
@@ -70,7 +73,7 @@ class Node():
     self.dT = self.time-self.oldtime
     self.oldtime = self.time
     self.dog.update(self.dT,self.action,self.frequency,self.amplitude,self.footforce1,self.footforce2,self.footforce3,self.footforce4)
-
+    self.servoControl.off() # pull pin low to enable servos
 
 
 #main function

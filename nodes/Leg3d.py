@@ -52,7 +52,7 @@ class Leg3d:
         print('thh_raw =', self.thh_raw)
 
         # Find displacement in z on the x-z plane (accounts for hip angle)
-        zp = z/(cos(arctan(yrel,z)))
+        zp = z/(cos(arctan(yrel/z)))
         print('zp = ', zp)
 
         d = sqrt(zp**2+x**2) # distance between foot and femur joint
