@@ -1,7 +1,8 @@
 from numpy import *
 from matplotlib.pyplot import *
+rcParams['agg.path.chunksize'] = 10000
 
-## TODO: Test to see if ANY of this is actually right (in spyder?)
+## TODO: Add more points to y-z plane to fill out workspace area
 
 # Limb dimensions
 # From inside face of hip near hip servo to inside face near femur servo (inch)
@@ -83,3 +84,20 @@ for h in hipRange:
             all_xp.append(xp)
             all_yp.append(yp)
             all_zp.append(zp)
+
+
+figure()
+plot(all_xp, all_zp)
+xlabel('X Positions (in)')
+ylabel('Z Positions (in)')
+
+figure()
+plot(all_yp, all_zp)
+xlabel('Y Positions (in)')
+ylabel('Z Positions (in)')
+
+#figure()
+#plot(all_zp, all_yp)
+#xlabel('Z Positions')
+#ylabel('Y Positions')
+show()
