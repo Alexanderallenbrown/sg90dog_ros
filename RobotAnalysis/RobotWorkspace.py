@@ -24,9 +24,9 @@ all_zp = []
 # Initialize allowable angle ranges for each joint
 hipJRangeMin = 20 #65
 hipJRangeMax = 140 #92
-femurJRangeMin = 0
-femurJRangeMax = 150
-tibiaJRangeMin = 0
+femurJRangeMin = 10
+femurJRangeMax = 180
+tibiaJRangeMin = 10
 tibiaJRangeMax = 160
 
 # Initialize allowable servo angle ranges for each joint
@@ -45,9 +45,9 @@ femurRangeMax = min([femurJRangeMax, femurSRangeMax])
 tibiaRangeMin = max([tibiaJRangeMin, tibiaSRangeMin])
 tibiaRangeMax = min([tibiaJRangeMax, tibiaSRangeMax])
 
-hipRange = range(hipRangeMin, hipRangeMax+1)
-femurRange = range(femurRangeMin, femurRangeMax+1)
-tibiaRange = range(tibiaRangeMin, tibiaRangeMax+1)
+hipRange = arange(hipRangeMin, hipRangeMax+1,0.25)
+femurRange = arange(femurRangeMin, femurRangeMax+1, 0.75)
+tibiaRange = arange(tibiaRangeMin, tibiaRangeMax+1, 0.75)
 
 # For each combination of angles, use forward kinematics to find the foot position
 for h in hipRange:
@@ -87,12 +87,12 @@ for h in hipRange:
 
 
 figure()
-plot(all_xp, all_zp)
+plot(all_xp, all_zp,'k.')
 xlabel('X Positions (in)')
 ylabel('Z Positions (in)')
 
 figure()
-plot(all_yp, all_zp)
+plot(all_yp, all_zp,'b.')
 xlabel('Y Positions (in)')
 ylabel('Z Positions (in)')
 
