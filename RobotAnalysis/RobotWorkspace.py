@@ -86,15 +86,19 @@ for h in hipRange:
             all_zp.append(zp)
 
 
-figure()
-plot(all_xp, all_zp,'k.')
-xlabel('X Positions (in)')
-ylabel('Z Positions (in)')
+#figure()
+#plot(all_xp, all_zp,'k.')
+#xlabel('X Positions (in)')
+#ylabel('Z Positions (in)')
 
 figure()
 plot(all_yp, all_zp,'b.')
 xlabel('Y Positions (in)')
 ylabel('Z Positions (in)')
+plot([-4, 4], [0, 0], 'r')
+plot([-4, -4], [0, 2], 'r')
+plot([4, 4], [0,2],'r')
+plot([-4, 4], [2, 2], 'r')
 
 #figure()
 #plot(all_zp, all_yp)
