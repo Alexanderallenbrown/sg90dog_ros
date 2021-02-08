@@ -18,7 +18,7 @@ float dT;
 
 
 int n;  // leg number, 1-4 (fl, rr, fr, rl)
-float Wgait = pi;  // walking gait angular velocity (rad/s)
+float Wgait = 2*pi;  // walking gait angular velocity (rad/s)
 float Tgait = 2*pi / Wgait;
 float Tstance = (Tgait)*3/4;
 float vStance = 2*xamp / (Tstance);
@@ -101,11 +101,11 @@ void loop(){
   dT = (millis() - tOld)*1.0e-3;
   tOld = millis();
 
-//    stand();
+    stand();
 //    walk();
 //    leftTurn();
 //    rightTurn();
-    walkBack();
+//    walkBack();
 
 
 //  // Finite State Machine
@@ -150,7 +150,7 @@ void loop(){
 //  else {
 //    // fell through the logic!
 //  }
-//
+////
 //  Serial.print(irReading);
 //  Serial.print('\t');
 //  Serial.print(randChoice);
@@ -162,7 +162,7 @@ void loop(){
 //  Serial.print(LeftTurn);
 //  Serial.print('\t');
 //  Serial.print(RightTurn);
-//  Serial.println('\t');
+  Serial.println('\t');
   
 }
 
@@ -230,15 +230,15 @@ void walk() {
 
 
     leg1.update(xfr,yfr,zfr);
-    leg2.update(xfl,yfl,zfl);
-    leg3.update(xrl,yrl,zrl);
-    leg4.update(xrr,yrr,zrr);
+//    leg2.update(xfl,yfl,zfl);
+//    leg3.update(xrl,yrl,zrl);
+//    leg4.update(xrr,yrr,zrr);
 
-    Serial.print(t1);
-    Serial.print("\t");
-    Serial.print(millis());
-    Serial.print("\t");
-    Serial.print(xrl);
+//    Serial.print(t1);
+//    Serial.print("\t");
+//    Serial.print(millis());
+//    Serial.print("\t");
+//    Serial.print(xrl);
 //    Serial.print("\t");
 //    Serial.print(phase);
 //    Serial.print(xOld[4]);
@@ -248,7 +248,7 @@ void walk() {
 //    Serial.print(zfr);
 //    Serial.print("\t");
 ////    Serial.print(phase);
-    Serial.println();
+//    Serial.println();
 }
 
 void walkBack() {
@@ -298,15 +298,15 @@ void walkBack() {
 
 //    Serial.print(t1);
 //    Serial.print("\t");
-    Serial.print(xfr);
-    Serial.print("\t");
-    Serial.print(phase);
+//    Serial.print(xfr);
+//    Serial.print("\t");
+//    Serial.print(phase);
 //    Serial.print(yfr);
 //    Serial.print("\t");
 //    Serial.print(zfr);
 //    Serial.print("\t");
 ////    Serial.print(phase);
-    Serial.println();
+//    Serial.println();
 }
 
 void leftTurn() {

@@ -19,10 +19,15 @@ float freq = 6;
 // For outboard leg setup: left - side 1, and right - side 2
 // For both set-ups: FL and RR hips - diagonal 1, and FR and RL hips - diagonal 2
 // For both set-ups: front - face 1, and rear - face 2
-Leg3D leg1 = Leg3D(2,1,1,90,90,90,2,1,0);
-Leg3D leg2 = Leg3D(1,2,1,90,90,90,5,4,3);
-Leg3D leg3 = Leg3D(1,1,2,90,90,90,8,7,6);
-Leg3D leg4 = Leg3D(2,2,2,90,90,90,11,10,9);
+//Leg3D leg1 = Leg3D(2,1,1,90,90,90,2,1,0);
+//Leg3D leg2 = Leg3D(1,2,1,90,90,90,5,4,3);
+//Leg3D leg3 = Leg3D(1,1,2,90,90,90,8,7,6);
+//Leg3D leg4 = Leg3D(2,2,2,90,90,90,11,10,9);
+
+Leg3D leg1 = Leg3D(1,1,1,90,90,90,2,1,0);
+Leg3D leg2 = Leg3D(2,2,1,90,90,90,5,4,3);
+Leg3D leg3 = Leg3D(2,1,2,90,90,90,8,7,6);
+Leg3D leg4 = Leg3D(1,2,2,90,90,90,11,10,9);
 
 void setup() {
   Serial.begin(115200);
@@ -46,19 +51,21 @@ void loop() {
   float z2 = 0; // amp*sin(freq*t);
 
   // Read each analog force sensor
-  float f1 = analogRead(0) - 314; //278;  // front right leg
+  // My robot: [f1, f2, f3, f4] = [-314, -298, -300, -341]
+  // Professor Brown's copy:
+  float f1 = analogRead(0) - 322;// - 314; //278;  // front right leg
   Serial.print(f1);
   Serial.print("\t");
 
-  float f2 = analogRead(1) - 298; // 274  // front right leg
+  float f2 = analogRead(1) - 257;// - 298; // 274  // front right leg
   Serial.print(f2);
   Serial.print("\t");
 
-  float f3 = analogRead(2) - 300;  // 250 // front right leg
+  float f3 = analogRead(2) - 273;// - 300;  // 250 // front right leg
   Serial.print(f3);
   Serial.print("\t");
 
-  float f4 = analogRead(3) - 341;  // 283 // front right leg
+  float f4 = analogRead(3) - 225;// - 341;  // 283 // front right leg
   Serial.print(f4);
   Serial.print("\t");
 
@@ -103,6 +110,11 @@ void loop() {
   leg2.update(x,y,zfl_actual);
   leg3.update(x,y,zrl_actual);
   leg4.update(x,y,zrr_actual);
+
+//  leg1.update(x,y,z);
+//  leg2.update(x,y,z);
+//  leg3.update(x,y,z);
+//  leg4.update(x,y,z);
 
   tOld = t; // reset old time value
   Serial.println("");
