@@ -11,10 +11,10 @@ bool TMR_timing1 = false;
 // Other values
 unsigned long TMR_elapsed1 = 0;  // elapsed time (ms)
 unsigned long TMR_starttime1 = millis;  // time at which timer started (ms)
-const int TMR_duration1 = 2000;   // duration of timer (ms)
+const int TMR_duration1 = 500;   // duration of timer (ms)
 bool timeComplete1 = false;
 
-bool timer(bool TMR_enable1) {
+bool delayReadingTimer(bool TMR_enable1) {
 
   // BLOCK 2: State Transition Logic
   //---------------------------------------- 

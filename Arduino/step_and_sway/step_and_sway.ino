@@ -1,4 +1,5 @@
 /* Step and Sway
+ *  Gabrielle G. Conard
  *  February 18, 2021
  *  1. Performing a step change in y-direction of the body (or the feet).
  *  2. Performing swaying of body

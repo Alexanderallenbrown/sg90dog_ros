@@ -53,19 +53,19 @@ void loop() {
   // Read each analog force sensor
   // My robot: [f1, f2, f3, f4] = [-314, -298, -300, -341]
   // Professor Brown's copy:
-  float f1 = analogRead(0) - 322;// - 314; //278;  // front right leg
+  float f1 = analogRead(0);// - 322;// - 314; //278;  // front right leg
   Serial.print(f1);
   Serial.print("\t");
 
-  float f2 = analogRead(1) - 257;// - 298; // 274  // front right leg
+  float f2 = analogRead(1);// - 257;// - 298; // 274  // front right leg
   Serial.print(f2);
   Serial.print("\t");
 
-  float f3 = analogRead(2) - 273;// - 300;  // 250 // front right leg
+  float f3 = analogRead(2);// - 273;// - 300;  // 250 // front right leg
   Serial.print(f3);
   Serial.print("\t");
 
-  float f4 = analogRead(3) - 225;// - 341;  // 283 // front right leg
+  float f4 = analogRead(3);// - 225;// - 341;  // 283 // front right leg
   Serial.print(f4);
   Serial.print("\t");
 
@@ -106,15 +106,15 @@ void loop() {
 
 
   // Update leg position using Leg3D library
-  leg1.update(x,y,zfr_actual);
-  leg2.update(x,y,zfl_actual);
-  leg3.update(x,y,zrl_actual);
-  leg4.update(x,y,zrr_actual);
+//  leg1.update(x,y,zfr_actual);
+//  leg2.update(x,y,zfl_actual);
+//  leg3.update(x,y,zrl_actual);
+//  leg4.update(x,y,zrr_actual);
 
-//  leg1.update(x,y,z);
-//  leg2.update(x,y,z);
-//  leg3.update(x,y,z);
-//  leg4.update(x,y,z);
+  leg1.update(x,y,z);
+  leg2.update(x,y,z);
+  leg3.update(x,y,z);
+  leg4.update(x,y,z);
 
   tOld = t; // reset old time value
   Serial.println("");
