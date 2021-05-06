@@ -60,6 +60,12 @@ bool Tlf;
 //bool Lr;
 //bool cycleTime = false;
 
+bool Go = true;
+bool Stay = false;
+bool Tsg;
+bool Tgs;
+bool Ls;
+bool Lg;
 
 // IR Sensor and Edge Detecting
 float irReading;
@@ -67,6 +73,22 @@ bool edgeDetected;
 
 bool backTime = false;
 bool turnTime = false;
+
+// Initialize buttons
+int btn_C;
+int btn_C_pin = 7;
+int btn_C_old = 0;
+int btn_C_press;
+
+int btn_B;
+int btn_B_pin = 11;
+int btn_B_old = 0;
+int btn_B_press;
+
+int btn_A;
+int btn_A_pin = 12;
+int btn_A_old = 0;
+int btn_A_press;
 
 //set up for the Right Front leg:
 //function prototype is Leg3d(side, diagonal, face, hip_center, femur_center, tibia_center, hip_num, femur_num, tibia_num)
@@ -94,13 +116,62 @@ void setup(){
 
   pinMode(5, OUTPUT);
   digitalWrite(5, HIGH);
+
+  pinMode(btn_C_pin, INPUT_PULLUP);
+
+  Serial.print(Go);
+  Serial.print('\t');
+  Serial.println(Stay);
 }
 
 void loop(){
 
-  dT = (millis() - tOld)*1.0e-3;
-  tOld = millis();
+    dT = (millis() - tOld)*1.0e-3;
+    tOld = millis();
 
+//    Serial.print(Go);
+//    Serial.print('\t');
+//    Serial.print(Stay);
+//    Serial.print('\t');
+//    btn_B = !digitalRead(btn_B_pin);          // read if the button is being currently pressed
+//    btn_B_press = btn_B && !btn_B_old;  // determine if it is a unique press
+//    btn_B_old = btn_B;  // update btn_B_old according to current button state
+//    
+//    
+//    btn_C = !digitalRead(btn_C_pin);          // read if the button is being currently pressed
+//    btn_C_press = btn_C && !btn_C_old;  // determine if it is a unique press
+//    btn_C_old = btn_C;  // update btn_C_old according to current button state
+//    Serial.print(btn_C_press);
+//    Serial.print('\t');
+//
+//    Tgs = Go && btn_C_press;
+//    Lg = Go && !btn_C_press;
+//    Tsg = Stay && btn_C_press;
+//    Ls = Stay && !btn_C_press;
+//    Serial.print(Go);
+//    Serial.print('\t');
+//    Serial.print(Stay);
+//    Serial.print('\t');
+//    Serial.print(Tgs);
+//    Serial.print('\t');
+//    Serial.print(Lg);
+//    Serial.print('\t');
+//    Serial.print(Tsg);
+//    Serial.print('\t');
+//    Serial.print(Ls);
+//
+//    Go = Tsg || Lg;
+//    Stay = Tgs || Ls;
+//    
+//    if(Go) {
+//        walk();
+//        Serial.println("Walk");
+//    }
+//    else {
+//        stand();
+//        Serial.println("Stand");
+//    }
+  
     stand();
 //    walk();
 //    leftTurn();
@@ -230,9 +301,9 @@ void walk() {
 
 
     leg1.update(xfr,yfr,zfr);
-//    leg2.update(xfl,yfl,zfl);
-//    leg3.update(xrl,yrl,zrl);
-//    leg4.update(xrr,yrr,zrr);
+    leg2.update(xfl,yfl,zfl);
+    leg3.update(xrl,yrl,zrl);
+    leg4.update(xrr,yrr,zrr);
 
 //    Serial.print(t1);
 //    Serial.print("\t");
