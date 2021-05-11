@@ -30,16 +30,16 @@ class Leg3d:
         # Adjust angles according to orientation of each servo
         if self.side==2:
             # If the servo is on the left side...
-            # self.thf = pi-self.thf
-            self.thf = self.thf
-            # self.tht = self.tht
-            self.tht = pi-self.tht
-            self.thh = pi-self.thh
+            self.thf = pi-self.thf
+            # self.thf = self.thf
+            self.tht = self.tht
+            # self.tht = pi-self.tht
+            # self.thh = pi-self.thh
         elif self.side==1:
             # If the servo is on the right side...
-            # self.tht = pi-self.tht
-            self.tht = self.tht
-            self.thf = pi-self.thf
+            self.tht = pi-self.tht
+            # self.tht = self.tht
+            # self.thf = pi-self.thf
 
         return self.thf*180/pi,self.tht*180/pi,self.thh*180/pi
 
