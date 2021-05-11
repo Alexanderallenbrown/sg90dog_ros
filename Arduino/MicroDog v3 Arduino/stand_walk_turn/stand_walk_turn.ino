@@ -172,8 +172,9 @@ void loop(){
 //        Serial.println("Stand");
 //    }
   
-    stand();
-//    walk();
+//    stand();
+    walk();
+    Serial.println(leg1._tht*180/pi);
 //    leftTurn();
 //    rightTurn();
 //    walkBack();
@@ -304,6 +305,13 @@ void walk() {
     leg2.update(xfl,yfl,zfl);
     leg3.update(xrl,yrl,zrl);
     leg4.update(xrr,yrr,zrr);
+
+    Serial.print(xfr);
+    Serial.print("\t");
+    Serial.print(yfr);
+    Serial.print("\t");
+    Serial.print(zfr);
+    Serial.print("\t");
 
 //    Serial.print(t1);
 //    Serial.print("\t");
