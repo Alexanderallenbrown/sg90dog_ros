@@ -10,6 +10,7 @@ from SG90Dog import SG90Dog
 
 from gpiozero import LED
 
+import inspect
 
 #this node subscribes to a float and a string. The float represents the input to a first order system. The string represents a state.
 
@@ -74,6 +75,7 @@ class Node():
     self.oldtime = self.time
     self.dog.update(self.dT,self.action,self.frequency,self.amplitude,self.footforce1,self.footforce2,self.footforce3,self.footforce4)
     self.servoControl.off() # pull pin low to enable servos
+    print(inspect.getframeinfo(inspect.getouterframes(inspect.currentframe())[1][0])[0])
 
 
 #main function
