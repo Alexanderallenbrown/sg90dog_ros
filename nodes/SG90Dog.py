@@ -306,7 +306,7 @@ class SG90Dog:
         rrfem,rrtib,rrhip = self.rrLeg.servoAngles(xrr,yrr,zrr_actual)
 
         # Pass angles to setLeg3d to send servos PWM commands
-        self.setLeg3d(frfem,frtib,frhip,0,1,2)
-        self.setLeg3d(flfem,fltib,flhip,3,4,5)
-        self.setLeg3d(rlfem,rltib,rlhip,6,7,8)
-        self.setLeg3d(rrfem,rrtib,rrhip,9,10,11)
+        self.setLeg3d(frtib,frfem,frhip,0,1,2)
+        self.setLeg3d(fltib,flfem,flhip,3,4,5)
+        self.setLeg3d(rltib,rlfem,rlhip,6,7,8)
+        self.setLeg3d(rrtib,rrfem,rrhip,9,10,11)
