@@ -46,7 +46,7 @@ class Node():
     self.dT = self.dt
     self.time = time.time()
     self.oldtime = self.time-self.dt
-    self.servoControl = LED(17) # initializes RPi GPIO 17, which controls the servos
+    # self.servoControl = LED(17) # initializes RPi GPIO 17, which controls the servos
 
   def sub1Callback(self,data):
     #the actual string is called by data.data. update the appropriate class-owned variable.
@@ -74,7 +74,7 @@ class Node():
     self.dT = self.time-self.oldtime
     self.oldtime = self.time
     self.dog.update(self.dT,self.action,self.frequency,self.amplitude,self.footforce1,self.footforce2,self.footforce3,self.footforce4)
-    self.servoControl.off() # pull pin low to enable servos
+    # self.servoControl.off() # pull pin low to enable servos
     print(inspect.getframeinfo(inspect.getouterframes(inspect.currentframe())[1][0])[0])
 
 
