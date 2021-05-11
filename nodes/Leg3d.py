@@ -3,11 +3,11 @@ from matplotlib.pyplot import *
 
 
 class Leg3d:
-    def __init__(self,lf=.044,lt=.071,tht_offset = (76.8)*pi/180.0,thf_offset =(135)*pi/180.0,zerox=.0254*.257,zeroz=-.0254*3.582,side=1,servozero_f=90,servozero_t=90,servozero_h=90):
+    def __init__(self,lf=.044,lt=.071,tht_offset = (76.8)*pi/180.0,thf_offset =(135)*pi/180.0,zerox=.0254*.257,zeroz=-.0254*3.582,side=1,diagonal=1,servozero_f=90,servozero_t=90,servozero_h=90):
         self.servozero_f = servozero_f*pi/180#degrees to rads. servos meant to rest at mid position.
         self.servozero_t = servozero_t*pi/180
         self.servozero_h = servozero_h*pi/180
-        self.lf,self.lt,self.tht_offset,self.thf_offset,self.zerox,self.zeroz,self.side=lf,lt,tht_offset,thf_offset,zerox,zeroz,side
+        self.lf,self.lt,self.tht_offset,self.thf_offset,self.zerox,self.zeroz,self.side,self.diagonal=lf,lt,tht_offset,thf_offset,zerox,zeroz,side,diagonal
         self.thf_raw = pi/4
         self.tht_raw = 76.8*pi/180.
         self.thf = self.thf_raw+self.thf_offset
@@ -30,16 +30,19 @@ class Leg3d:
         # Adjust angles according to orientation of each servo
         if self.side==2:
             # If the servo is on the left side...
-            self.thf = pi-self.thf
-            # self.thf = self.thf
-            self.tht = self.tht
-            # self.tht = pi-self.tht
+            # self.thf = pi-self.thf
+            self.thf = self.thf
+            # self.tht = self.tht
+            self.tht = pi-self.tht
             # self.thh = pi-self.thh
         elif self.side==1:
             # If the servo is on the right side...
-            self.tht = pi-self.tht
+            # self.tht = pi-self.tht
             # self.tht = self.tht
-            # self.thf = pi-self.thf
+            self.thf = pi-self.thf
+
+        if self.diagonal==2:
+            self.thh = pi - self.thh
 
         return self.thf*180/pi,self.tht*180/pi,self.thh*180/pi
 

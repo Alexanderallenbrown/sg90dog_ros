@@ -26,10 +26,10 @@ class SG90Dog:
 
         self.zeroBot()
 
-        self.frLeg = Leg3d(side=1)
-        self.flLeg = Leg3d(side=2)
-        self.rlLeg = Leg3d(side=2)
-        self.rrLeg = Leg3d(side=1)
+        self.frLeg = Leg3d(side=1,diagonal=1)
+        self.flLeg = Leg3d(side=2,diagonal=2)
+        self.rlLeg = Leg3d(side=2,diagonal=1)
+        self.rrLeg = Leg3d(side=1,diagonal=2)
         self.t = 0
 
         # walker = Walk3d(stride_height=-0.01,stride_length =.02)
