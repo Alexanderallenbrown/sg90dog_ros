@@ -50,21 +50,21 @@ class SG90Dog:
     def setLeg3d(self,tibia,femur,hip,tch,fch,hipch):
         # TODO: update servo adjustments
         if hipch == 2:
-            fduty = self.a/180 * (femur + 1) + self.b
-            tduty = self.a/180 * (tibia + 10) + self.b
-            hduty = self.a/180 * (hip + 10) + self.b
-        elif hipch == 5:
-            fduty = self.a/180 * (femur - 6) + self.b
-            tduty = self.a/180 * (tibia - 7) + self.b
-            hduty = self.a/180 * (hip - 2) + self.b
+            fduty = self.a/180 * (femur + 0) + self.b
+            tduty = self.a/180 * (tibia + 0) + self.b
+            hduty = self.a/180 * (hip + 0) + self.b
         elif hipch == 5:
             fduty = self.a/180 * (femur - 0) + self.b
-            tduty = self.a/180 * (tibia - 3) + self.b
-            hduty = self.a/180 * (hip - 2) + self.b
+            tduty = self.a/180 * (tibia - 0) + self.b
+            hduty = self.a/180 * (hip - 0) + self.b
+        elif hipch == 5:
+            fduty = self.a/180 * (femur - 0) + self.b
+            tduty = self.a/180 * (tibia - 0) + self.b
+            hduty = self.a/180 * (hip - 0) + self.b
         else:
             fduty = self.a/180 * (femur + 0) + self.b
-            tduty = self.a/180* (tibia + 10) + self.b
-            hduty = self.a/180* (hip - 12) + self.b
+            tduty = self.a/180* (tibia + 0) + self.b
+            hduty = self.a/180* (hip - 0) + self.b
         # print fduty,tduty,hduty
         self.pwm.setDuty(fch,fduty)
         self.pwm.setDuty(tch,tduty)
