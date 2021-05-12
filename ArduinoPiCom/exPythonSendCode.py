@@ -32,7 +32,7 @@ if __name__ == '__main__':
             #write
 
             bytescommand = struct.pack('=4b',temperatura,vazao,command,teste) #to avoid adjustment
-            ints2send = struct.unpack('12b',bytescommand)
+            ints2send = struct.unpack('16b',bytescommand)
             bus.write_block_data(arduinoAddress,1,list(ints2send))
             # print(list(bytescommand))
             print(list(ints2send))
