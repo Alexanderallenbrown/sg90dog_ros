@@ -10,11 +10,11 @@ def millis():
     ms = (dt.days*24*60*60 + dt.seconds)*1000+dt.microseconds / 1000.0
     return ms
 
-#inicia escravo i2c
-bus = SMBus(1) #o i2c deste rpi começa com 1
+#start slave i2c
+bus = SMBus(1) #the i2c of this RPi starts with 1
 arduinoAddress = 12
 
-#intervalo de execução
+#execution interval
 interval = 150
 
 temperatura = 10.2
@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
             #write
 
-            bytescommand = struct.pack('=2fbb',temperatura,vazao,command,teste) #para evitar o ajuste
+            bytescommand = struct.pack('=2fbb',temperatura,vazao,command,teste) #to avoid adjustment
             bus.write_block_data(arduinoAddress,1,list(bytescommand))
             print(list(bytescommand))
 

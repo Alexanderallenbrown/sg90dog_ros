@@ -21,7 +21,7 @@ typedef union I2C_Send{
   byte I2C_packet[sizeof(processData)];
 };
 
-//declaracao da variável de envio
+//declaration of the shipping variable
 I2C_Send send_info;
 
 
