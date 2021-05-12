@@ -11,7 +11,7 @@ def millis():
     return ms
 
 #start slave i2c
-bus = SMBus(1) #the i2c of this RPi starts with 1
+bus = SMBus(3) #the i2c of this RPi starts with 1
 arduinoAddress = 12
 
 #execution interval
