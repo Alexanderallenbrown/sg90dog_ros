@@ -17,8 +17,8 @@ arduinoAddress = 12
 #execution interval
 interval = 150
 
-temperatura = 10.2
-vazao = 5.3
+temperatura = 10
+vazao = 5
 command = 20
 teste = 30
 
@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
             #write
 
-            bytescommand = struct.pack('=2fbb',temperatura,vazao,command,teste) #to avoid adjustment
+            bytescommand = struct.pack('=4b',temperatura,vazao,command,teste) #to avoid adjustment
             bus.write_block_data(arduinoAddress,1,list(bytescommand))
             print(list(bytescommand))
 
